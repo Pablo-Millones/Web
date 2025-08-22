@@ -146,6 +146,23 @@ void main() {
 `;
 
 
+window.addEventListener('load', function () {
+  let i = 0;
+  // selecciona todas las imágenes EXCEPTO las que tengan la clase "no-vfx"
+  for (const e of document.querySelectorAll('img:not(.no-vfx)')) {
+    const z = e.getAttribute('data-z');
+    vfx.add(e, { 
+      shader: shader2,
+      uniforms: { id: i++ },
+      zIndex: z ? parseInt(z) : 0,
+      // overlay: true,
+    });
+  }    
+});
+
+
+
+
 const vfx = new VFX({ 
   scrollPadding: false,
   postEffect: { shader },
@@ -161,22 +178,6 @@ function adjustCanvas() {
   vfx.canvas.style.height = window.innerHeight + 'px';
   vfx.setResolution([vfx.canvas.width, vfx.canvas.height]);
 }
-
-window.addEventListener('load', function () {
-  adjustCanvas();
-
-  let i = 0;
-  document.querySelectorAll('img.vfx-img').forEach(e => {
-    if (e.classList.contains('no-vfx')) return; // ignorar footer
-
-    const z = e.getAttribute('data-z');
-    vfx.add(e, {
-      shader: shader2,
-      uniforms: { id: i++ },
-      zIndex: z ? parseInt(z) : 0,
-    });
-  });
-});
 
 // Ajustar al redimensionar
 window.addEventListener('resize', adjustCanvas);
