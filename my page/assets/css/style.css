@@ -1,0 +1,235 @@
+/* =========================
+   Reset y base
+   ========================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P', cursive;
+  background: black;
+  color: white;
+  overflow-x: hidden;  /* horizontal bloqueada */
+  overflow-y: auto;    /* vertical activa */
+  height: 100%;
+  position: relative;
+}
+
+/* =========================
+   Overlay CRT: viñeta + scanlines
+   ========================= */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999; /* encima de todo */
+  background:
+    radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.75) 100%),
+    repeating-linear-gradient(
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      rgba(0,0,0,0) 1px,
+      rgba(0,0,0,0) 3px
+    );
+  background-blend-mode: normal;
+}
+
+/* =========================
+   Header y canvas
+   ========================= */
+header {
+  width: 100%;
+  height: 80vh;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#glitch-name {
+  width: 90%;
+  height: 100%;
+  max-width: 1200px;
+}
+
+/* =========================
+   Secciones y texto
+   ========================= */
+section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 5vh auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+p {
+  font-size: 2.5vw;
+  line-height: 1.5;
+}
+
+/* =========================
+   Columnas y media
+   ========================= */
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.col .text { flex: 1; }
+.col .media { flex: 1; }
+
+/* Video responsivo */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Imágenes */
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Última sección centrada */
+.last {
+  display: grid;
+  place-items: center;
+}
+.last > * { grid-area: 1 / 1; }
+
+/* =========================
+   Responsivo
+   ========================= */
+@media(min-width: 768px) {
+  .col { flex-direction: row; }
+  p { font-size: 1.5vw; }
+  h1 { font-size: 4vw; }
+}
+
+/* =========================
+   Animaciones fade-in
+   ========================= */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  50% { opacity: 1; transform: translateY(0); }
+}
+h1, h2, p, img:not(.no-vfx) { 
+  animation: fadeIn 1.2s forwards; 
+}
+
+/* =========================
+   Galería horizontal
+   ========================= */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 2em;
+  overflow-x: auto;
+  padding-bottom: 0.5em;
+  padding-left: 1em; /* para que no quede pegado al borde en móviles */
+  padding-right: 1em;
+}
+
+.gallery img {
+  flex: 0 0 auto;
+  width: 200px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+/* Opcional: efecto hover */
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+  .gallery img {
+    width: 120px; /* más pequeño en móviles */
+  }
+  .gallery {
+    gap: 0.5em;
+  }
+}
+
+.p {
+  text-align: justify;
+}
+.gallery-hero {
+  display: grid;
+  grid-auto-flow: column;       /* una fila horizontal */
+  grid-auto-columns: 1fr;       /* cada columna igual de ancha */
+  gap: 0.3em;
+  padding: 1em;
+  overflow: hidden;             /* sin scroll */
+}
+
+.gallery-hero img {
+  width: 100%;                  /* ocupa todo el ancho de su columna */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  color: white;
+  padding: 2em 1em;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.footer .socials {
+  display: flex;
+  gap: 1em;
+}
+
+.footer .socials a img {
+  width: 30px;
+  height: 30px;
+  filter: invert(1); /* blanco sobre fondo oscuro */
+  transition: transform 0.3s;
+}
+
+.footer .socials a img:hover {
+  transform: scale(1.2);
+}
+
+.footer-copy {
+  margin-top: 1em;
+  font-size: 0.8em;
+  color: #888;
+}
+
+/* Móvil */
+@media(max-width: 600px) {
+  .footer .socials a img {
+    width: 25px;
+    height: 25px;
+  }
+}
