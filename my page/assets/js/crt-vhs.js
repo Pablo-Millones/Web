@@ -181,3 +181,35 @@ function adjustCanvas() {
 
 // Ajustar al redimensionar
 window.addEventListener('resize', adjustCanvas);
+
+
+  fetch('https://api.countapi.xyz/hit/hupax-web/visitas')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('visitas').innerText = data.value;
+    })
+    .catch(err => {
+      console.warn("No se pudo conectar a CountAPI, mostrando valor demo");
+      document.getElementById('visitas').innerText = "999";
+    });
+    const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const progress = document.getElementById("progress");
+
+playBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.textContent = "⏸";
+  } else {
+    audio.pause();
+    playBtn.textContent = "▶";
+  }
+});
+
+audio.addEventListener("timeupdate", () => {
+  progress.value = (audio.currentTime / audio.duration) * 100;
+});
+
+progress.addEventListener("input", () => {
+  audio.currentTime = (progress.value / 100) * audio.duration;
+});

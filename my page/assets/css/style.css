@@ -204,27 +204,84 @@ h1, h2, p, img:not(.no-vfx) {
   gap: 1em;
 }
 
-.footer .socials {
-  display: flex;
-  gap: 1em;
-}
+  .footer .socials {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: 1em 0;
+  }
 
-.footer .socials a img {
-  width: 30px;
-  height: 30px;
-  filter: invert(1); /* blanco sobre fondo oscuro */
-  transition: transform 0.3s;
-}
+  .footer .socials img,
+  .footer .view-counter img {
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
+    transition: transform 0.3s ease;
+  }
 
-.footer .socials a img:hover {
-  transform: scale(1.2);
-}
+  .footer .socials img:hover {
+    transform: scale(1.2);
+  }
+
+  .footer .view-counter {
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+    color: #aaa;
+  }
 
 .footer-copy {
   margin-top: 1em;
   font-size: 0.8em;
   color: #888;
 }
+
+.player {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+  gap: 0.5em;
+}
+
+.track-art {
+  position: relative;
+  width: 250px;
+  height: 250px;
+}
+
+.track-art img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+#playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+#progress {
+  width: 100%;
+}
+
+
+
+
+
+
 
 /* Móvil */
 @media(max-width: 600px) {
